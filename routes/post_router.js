@@ -9,4 +9,6 @@ router.post("/", verifyToken, post_controller.posts_post);
 
 router.get("/:post_id", post_controller.post_single_get);
 
+router.put("/:post_id", verifyToken, post_controller.post_single_update);
+
 module.exports = router;
