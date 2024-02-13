@@ -6,4 +6,6 @@ router.get("/", user_controller.users_get);
 
 router.post("/", user_controller.users_post);
 
+router.post("/auth", user_controller.user_auth);
+
 module.exports = router;
