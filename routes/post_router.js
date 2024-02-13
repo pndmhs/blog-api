@@ -7,4 +7,6 @@ router.get("/", post_controller.posts_get);
 
 router.post("/", verifyToken, post_controller.posts_post);
 
+router.get("/:post_id", post_controller.post_single_get);
+
 module.exports = router;
