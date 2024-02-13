@@ -32,7 +32,7 @@ exports.posts_post = [
       });
 
       await post.save();
-      res.json({ message: "Added new post" });
+      res.status(201).json(post);
     }
   }),
 ];
