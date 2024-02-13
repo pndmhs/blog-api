@@ -12,14 +12,10 @@ exports.users_get = asyncHandler(async (req, res, next) => {
 });
 
 exports.users_post = [
-  body("first_name")
+  body("full_name", "Full name must be specified")
     .trim()
-    .isLength({ min: 1 })
-    .escape()
-    .withMessage("First name must be specified.")
-    .isAlphanumeric()
-    .withMessage("First name has non-alphanumeric characters."),
-  body("last_name").trim().escape(),
+    .isLength({ min: 3 })
+    .escape(),
   body("email", "Email is not valid").trim().isEmail().escape(),
   body("username")
     .trim()
@@ -65,8 +61,7 @@ exports.users_post = [
         next(err);
       } else {
         const user = new User({
-          firstName: req.body.first_name,
-          lastName: req.body.last_name,
+          fullName: req.body.full_name,
           email: req.body.email,
           username: req.body.username,
           password: hashedPassword,
@@ -77,7 +72,7 @@ exports.users_post = [
           return;
         } else {
           await user.save();
-          res.json(user);
+          res.json({ message: "Request succeed" });
         }
       }
     });
