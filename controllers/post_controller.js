@@ -36,3 +36,11 @@ exports.posts_post = [
     }
   }),
 ];
+
+exports.post_single_get = asyncHandler(async (req, res, next) => {
+  const post = await Post.findById(req.params.post_id);
+
+  if (!post) res.status(400).json({ message: "Post not found" });
+
+  res.json(post);
+});
