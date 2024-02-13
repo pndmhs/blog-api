@@ -2,6 +2,10 @@ const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
+const path = require("path");
+const jwt = require("jsonwebtoken");
+
+require("dotenv").config({ path: path.join(__dirname, "..", ".env") });
 
 exports.users_get = asyncHandler(async (req, res, next) => {
   res.send("GET request for all users data");
@@ -79,3 +83,21 @@ exports.users_post = [
     });
   }),
 ];
+
+exports.user_auth = asyncHandler(async (req, res, next) => {
+  const user = await User.findOne({ username: req.body.username }).exec();
+  if (!user) {
+    res.sendStatus(400).json({ error: "Incorrect username" });
+  }
+
+  const match = await bcrypt.compare(req.body.password, user.password);
+  if (!match) {
+    res.sendStatus(400).json({ error: "Incorrect password" });
+  }
+
+  const accessToken = jwt.sign(
+    { username: user.username },
+    process.env.ACCESS_TOKEN_SECRET
+  );
+  res.json({ accessToken });
+});
