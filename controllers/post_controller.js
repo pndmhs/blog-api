@@ -78,3 +78,12 @@ exports.post_single_update = [
     }
   }),
 ];
+
+exports.post_delete = asyncHandler(async (req, res, next) => {
+  const post = Post.findById(req.params.post_id);
+
+  if (!post) res.sendStatus(400);
+
+  await Post.findByIdAndDelete(req.params.post_id);
+  res.sendStatus(204);
+});
