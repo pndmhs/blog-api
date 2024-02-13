@@ -11,4 +11,6 @@ router.get("/:post_id", post_controller.post_single_get);
 
 router.put("/:post_id", verifyToken, post_controller.post_single_update);
 
+router.delete("/:post_id", verifyToken, post_controller.post_delete);
+
 module.exports = router;
