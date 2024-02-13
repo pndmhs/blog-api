@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 
 const CommentSchema = new Schema({
   text: { type: String, require: true, minLength: 3 },
-  timestamp: { type: date, default: Date.now() },
+  timestamp: { type: Date, default: Date.now() },
+  username: { type: String, minLength: 3 },
   post: { type: Schema.ObjectId, ref: "Post" },
 });
 
