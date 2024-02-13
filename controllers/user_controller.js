@@ -87,16 +87,16 @@ exports.users_post = [
 exports.user_auth = asyncHandler(async (req, res, next) => {
   const user = await User.findOne({ username: req.body.username }).exec();
   if (!user) {
-    res.sendStatus(400).json({ error: "Incorrect username" });
+    res.status(400).json({ error: "Incorrect username" });
   }
 
   const match = await bcrypt.compare(req.body.password, user.password);
   if (!match) {
-    res.sendStatus(400).json({ error: "Incorrect password" });
+    res.status(400).json({ error: "Incorrect password" });
   }
 
   const accessToken = jwt.sign(
-    { username: user.username },
+    { _id: user._id, username: user.username },
     process.env.ACCESS_TOKEN_SECRET
   );
   res.json({ accessToken });
