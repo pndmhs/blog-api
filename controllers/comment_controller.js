@@ -5,7 +5,7 @@ const Comment = require("../models/comment");
 exports.comments_get = asyncHandler(async (req, res, next) => {
   const allComments = await Comment.find({ post: req.params.post_id });
 
-  res.json({ comments: allComments });
+  res.json(allComments);
 });
 
 exports.comments_post = [
@@ -21,14 +21,18 @@ exports.comments_post = [
     if (!errors.isEmpty) {
       res.status(400).json({ errors });
     } else {
+      const text = req.body.text;
+      const username = req.body.username.length > 0 ? req.body.username : null;
+      const post = req.params.post_id;
+
       const comment = new Comment({
-        text: req.body.text,
-        username: req.body.username,
-        post: req.params.post_id,
+        text,
+        username,
+        post,
       });
 
       await comment.save();
-      res.json({ message: "Added new comment" });
+      res.json(comment);
     }
   }),
 ];
