@@ -7,6 +7,7 @@ const PostSchema = new Schema({
   text: { type: String, require: true, minLength: 3 },
   created_at: { type: Date, default: Date.now() },
   modified_at: { type: Date, default: null },
+  published: { type: Boolean, default: false },
   user: { type: Schema.ObjectId, ref: "User" },
 });
 
