@@ -6,7 +6,7 @@ exports.posts_get = asyncHandler(async (req, res, next) => {
   const allPosts = await Post.find()
     .populate("user", "username fullName")
     .exec();
-  res.json({ posts: allPosts });
+  res.json(allPosts);
 });
 
 exports.posts_post = [
