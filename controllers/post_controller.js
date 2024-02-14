@@ -1,6 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 const Post = require("../models/post");
+const Comment = require("../models/comment");
 
 exports.posts_get = asyncHandler(async (req, res, next) => {
   const allPosts = await Post.find()
@@ -80,10 +81,16 @@ exports.post_single_update = [
 ];
 
 exports.post_delete = asyncHandler(async (req, res, next) => {
-  const post = Post.findById(req.params.post_id);
+  const [post, allCommentsOnPost] = await Promise.all([
+    Post.findById(req.params.post_id),
+    Comment.find({ post: req.params.post_id }),
+  ]);
 
   if (!post) res.sendStatus(400);
 
+  allCommentsOnPost.forEach(async (comment) => {
+    await Comment.findByIdAndDelete(comment._id);
+  });
   await Post.findByIdAndDelete(req.params.post_id);
   res.sendStatus(204);
 });
