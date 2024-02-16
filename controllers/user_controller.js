@@ -7,10 +7,6 @@ const jwt = require("jsonwebtoken");
 
 require("dotenv").config({ path: path.join(__dirname, "..", ".env") });
 
-exports.users_get = asyncHandler(async (req, res, next) => {
-  res.send("GET request for all users data");
-});
-
 exports.users_post = [
   body("full_name", "Full name must be specified")
     .trim()
