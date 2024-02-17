@@ -90,5 +90,5 @@ exports.user_auth = asyncHandler(async (req, res, next) => {
     { _id: user._id, username: user.username },
     process.env.ACCESS_TOKEN_SECRET
   );
-  res.json({ accessToken });
+  res.json({ username: user.username, fullName: user.fullName, accessToken });
 });
