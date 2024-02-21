@@ -69,6 +69,7 @@ exports.post_single_update = [
         title: req.body.title,
         text: req.body.text,
         user: req.user._id,
+        published: req.body.published || false,
         created_at: oldPost.created_at,
         modified_at: Date.now(),
         _id: req.params.post_id,
