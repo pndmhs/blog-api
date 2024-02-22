@@ -87,11 +87,13 @@ exports.post_delete = asyncHandler(async (req, res, next) => {
     Comment.find({ post: req.params.post_id }),
   ]);
 
-  if (!post) res.sendStatus(400);
-
-  allCommentsOnPost.forEach(async (comment) => {
-    await Comment.findByIdAndDelete(comment._id);
-  });
-  await Post.findByIdAndDelete(req.params.post_id);
-  res.sendStatus(204);
+  if (!post) {
+    res.sendStatus(400);
+  } else {
+    allCommentsOnPost.forEach(async (comment) => {
+      await Comment.findByIdAndDelete(comment._id);
+    });
+    await Post.findByIdAndDelete(req.params.post_id);
+    res.sendStatus(204);
+  }
 });
