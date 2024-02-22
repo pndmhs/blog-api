@@ -20,7 +20,7 @@ const limiter = RateLimit({
   message: "You have exceeded the 100 requests in 24 hrs limit!",
 });
 
-app.use(limiter);
+// app.use(limiter);
 
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
@@ -43,5 +43,5 @@ app.use("/posts", postRouter);
 app.use("/posts/:post_id/comments", commentRouter);
 
 app.listen(port, () => {
-  console.log("Server is listening at port 3000");
+  console.log(`Server is listening at port ${port}`);
 });
