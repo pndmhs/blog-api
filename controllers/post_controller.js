@@ -6,6 +6,7 @@ const Comment = require("../models/comment");
 exports.posts_get = asyncHandler(async (req, res, next) => {
   const allPosts = await Post.find()
     .populate("user", "username fullName")
+    .sort({ created_at: -1 })
     .exec();
   res.json(allPosts);
 });
