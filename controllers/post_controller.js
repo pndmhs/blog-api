@@ -72,7 +72,7 @@ exports.post_single_update = [
         user: req.user._id,
         published: req.body.published || false,
         created_at: oldPost.created_at,
-        modified_at: Date.now(),
+        modified_at: req.body.modified_at || oldPost.modified_at,
         _id: req.params.post_id,
       });
 
