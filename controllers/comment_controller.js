@@ -36,3 +36,18 @@ exports.comments_post = [
     }
   }),
 ];
+
+exports.comments_single_delete = [
+  body("comment_id", "Comment ID is not valid").trim().escape(),
+
+  asyncHandler(async (req, res, next) => {
+    const comment = await Comment.findById(req.body.comment_id);
+
+    if (!comment) {
+      res.sendStatus(400);
+    } else {
+      await Comment.findByIdAndDelete(req.body.comment_id);
+      res.sendStatus(204);
+    }
+  }),
+];
