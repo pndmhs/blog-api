@@ -20,7 +20,7 @@ const limiter = RateLimit({
   message: "You have exceeded the 100 requests in 24 hrs limit!",
 });
 
-// app.use(limiter);
+app.use(limiter);
 
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
