@@ -10,6 +10,7 @@ const postRouter = require("./routes/post_router");
 const commentRouter = require("./routes/comment_router");
 
 const app = express();
+const port = process.env.PORT || 3000;
 
 const RateLimit = require("express-rate-limit");
 
@@ -41,6 +42,6 @@ app.use("/users", userRouter);
 app.use("/posts", postRouter);
 app.use("/posts/:post_id/comments", commentRouter);
 
-app.listen(3000, () => {
+app.listen(port, () => {
   console.log("Server is listening at port 3000");
 });
