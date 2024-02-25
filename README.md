@@ -45,7 +45,7 @@ npm install
    ```env
    PORT=3000
    MONGODB_URI=your-mongodb-connection-string
-   JWT_SECRET=your-jwt-secret
+   ACCESS_TOKEN_SECRET=your-jwt-secret
    ```
 
    Replace `your-mongodb-connection-string` and `your-jwt-secret` with your MongoDB connection string and a secret key for JWT.
